@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PostTweetController.h"
 
-@interface TimelineController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface TimelineController : UITableViewController <UITableViewDataSource, UITableViewDelegate, PostTweetControllerDelegate>
 
 @property (assign) BOOL loadOnlyCache;
-@property NSString *timelineCacheKey;
-@property NSURL *dataURL;
-@property NSArray *tweets;
-@property UIRefreshControl *refreshControl;
+@property (nonatomic, strong) NSString *timelineCacheKey;
+@property (nonatomic, strong) NSURL *dataURL;
+@property (nonatomic, strong) NSArray *tweets;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 - (id)initWithTimelineCacheKey:(NSString*)key loadOnlyCache:(BOOL)cache;
 @end

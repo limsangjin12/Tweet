@@ -31,6 +31,7 @@
 #pragma makr - Custom Methods
 
 - (void)dismissViewController{
+    [self.delegate didFinishPosting];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

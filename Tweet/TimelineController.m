@@ -10,7 +10,6 @@
 #import "TWObjects.h"
 #import "TweetController.h"
 #import "UIImageView+AFNetworking.h"
-#import "PostTweetController.h"
 
 @implementation TimelineController
 
@@ -61,8 +60,15 @@
 
 - (void)postTweet{
     PostTweetController *postTweet = [[PostTweetController alloc] init];
+    postTweet.delegate = self;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:postTweet];
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+#pragma mark - PostTweetControllerDelegate
+
+- (void)didFinishPosting{
+    [self refresh];
 }
 
 #pragma mark - UITableViewDataSource

@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PostTweetControllerDelegate <NSObject>
+@optional
+- (void)didFinishPosting;
+@end
+
 @interface PostTweetController : UIViewController
 
-@property UITextView *textView;
+@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) id <PostTweetControllerDelegate> delegate;
 
 @end

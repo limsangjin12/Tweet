@@ -11,8 +11,8 @@
 
 @interface TweetController : UIViewController
 
-@property UIScrollView *contentView;
-@property Tweet *tweet;
+@property (nonatomic, strong) UIScrollView *contentView;
+@property (nonatomic, strong) Tweet *tweet;
 
 - (id)initWithTweet:(Tweet*)tweet;
 @end
