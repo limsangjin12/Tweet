@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A4D27C3A-E30F-4382-A17D-90A82DFEEA10</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Tweet</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>28D11DF0-FFDD-45DD-B951-BDCCF92CAD92</key>
+		<string>git://github.com/AFNetworking/AFNetworking.git</string>
+		<key>EB4AFFF5-CE3B-42F2-891F-F5BFC215F45B</key>
+		<string>ssh://github.com/limsangjin12/Tweet.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Tweet.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>28D11DF0-FFDD-45DD-B951-BDCCF92CAD92</key>
+		<string>../../AFNetworking</string>
+		<key>EB4AFFF5-CE3B-42F2-891F-F5BFC215F45B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/limsangjin12/Tweet.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EB4AFFF5-CE3B-42F2-891F-F5BFC215F45B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EB4AFFF5-CE3B-42F2-891F-F5BFC215F45B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Tweet</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>28D11DF0-FFDD-45DD-B951-BDCCF92CAD92</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AFNetworking</string>
+		</dict>
+	</array>
+</dict>
+</plist>

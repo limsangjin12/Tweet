@@ -36,7 +36,7 @@
     CGSize size = [body sizeWithFont:[UIFont systemFontOfSize:12]
                    constrainedToSize:CGSizeMake(250, 200)
                        lineBreakMode:NSLineBreakByWordWrapping];
-    UITextView *bodyView = [[UITextView alloc] initWithFrame:CGRectMake(5, 42, 310, size.height + 10)];
+    UITextView *bodyView = [[UITextView alloc] initWithFrame:CGRectMake(5, 42, 275, size.height + 10)];
     bodyView.font = [UIFont systemFontOfSize:12];
     bodyView.userInteractionEnabled = NO;
     bodyView.text = body;
@@ -44,6 +44,12 @@
     
     UILabel *usernameView = [[UILabel alloc] initWithFrame:CGRectMake(48, 3, 163, 20)];
     [self.contentView addSubview:usernameView];
+    
+    UIButton *likeButton = [[UIButton alloc] initWithFrame:CGRectMake(285, 5, 30, 30)];
+    [likeButton setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
+    [likeButton setImage:[UIImage imageNamed:@"heart-selected"] forState:UIControlStateSelected];
+    [likeButton addTarget:self action:@selector(likeButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:likeButton];
     
     CacheObject *cache = [CacheObject sharedObject];
     __block User *user = [cache cachedUserForId:[Tweet userId:self.tweet]];
@@ -69,6 +75,18 @@
         [profileImageView setImageWithURL:[User profilePictureURL:user]];
         usernameView.text = [User username:user];
         self.title = [User username:user];
+    }
+}
+
+#pragma mark - Custom Methods
+
+- (void)likeButtonTouched:(UIButton*)button{
+    if(!button.selected){
+        CacheObject *cache = [CacheObject sharedObject];
+        NSMutableArray *favorites = [cache cachedFavorites];
+        [favorites addObject:self.tweet];
+        [cache setObject:favorites forkey:FAVORITES_TWEETS_CACHE_KEY];
+        button.selected = YES;
     }
 }
 

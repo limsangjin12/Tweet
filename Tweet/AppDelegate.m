@@ -9,9 +9,6 @@
 #import "AppDelegate.h"
 #import "TimelineController.h"
 
-#define TIMELINE_TWEETS_CACHE_KEY @"timelineTweets"
-#define FAVORITES_TWEETS_CACHE_KEY @"favoritesTweets"
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -23,9 +20,11 @@
     TimelineController *timeline = [[TimelineController alloc] initWithTimelineCacheKey:TIMELINE_TWEETS_CACHE_KEY
                                                                           loadOnlyCache:NO];
     timeline.title = @"Timeline";
+    timeline.tabBarItem.image = [UIImage imageNamed:@"heart"];
     TimelineController *favorites = [[TimelineController alloc] initWithTimelineCacheKey:FAVORITES_TWEETS_CACHE_KEY
                                                                            loadOnlyCache:YES];
     favorites.title = @"Favorites";
+    favorites.tabBarItem.image = [UIImage imageNamed:@"timeline"];
     NSMutableArray *viewControllers = [NSMutableArray array];
     for(UIViewController *vc in [NSArray arrayWithObjects:timeline, favorites, nil]) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];

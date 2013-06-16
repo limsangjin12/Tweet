@@ -33,29 +33,41 @@
     [self.tableView addSubview:self.refreshControl];
 
     self.tweets = [[CacheObject sharedObject] objectForkey:self.timelineCacheKey];
-    if(!self.loadOnlyCache)
+    [self refresh];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if(self.loadOnlyCache)
         [self refresh];
 }
 
 #pragma mark - Custom Methods
 
 - (void)refresh{
-    [self.refreshControl beginRefreshing];
-    AFHTTPClient *client = [NetworkObject sharedClient];
-    [client getPath:@"4/r"
-         parameters:nil
-            success:^(AFHTTPRequestOperation *operation, id JSON) {
-                NSLog(@"%@", JSON);
-                [[CacheObject sharedObject] setObject:JSON forkey:self.timelineCacheKey];
-                self.tweets = JSON;
-                [self.tableView reloadData];
-                [self.refreshControl endRefreshing];
-            }
-            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error");
-                [self.refreshControl endRefreshing];
-            }
-    ];
+    if(!self.loadOnlyCache){
+        [self.refreshControl beginRefreshing];
+        AFHTTPClient *client = [NetworkObject sharedClient];
+        [client getPath:@"4/r"
+             parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id JSON) {
+                    NSLog(@"%@", JSON);
+                    [[CacheObject sharedObject] setObject:JSON forkey:self.timelineCacheKey];
+                    self.tweets = JSON;
+                    [self.tableView reloadData];
+                    [self.refreshControl endRefreshing];
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"error");
+                    [self.refreshControl endRefreshing];
+                }
+        ];
+    }
+    else{
+        self.tweets = [[CacheObject sharedObject] objectForkey:self.timelineCacheKey];
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
+    }
 }
 
 - (void)postTweet{

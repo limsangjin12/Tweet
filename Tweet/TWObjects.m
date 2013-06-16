@@ -86,4 +86,8 @@
     NSString *key = [NSString stringWithFormat:@"user_%d", userId];
     return [defaults objectForKey:key];
 }
+- (NSMutableArray*)cachedFavorites{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [NSMutableArray arrayWithArray:[defaults objectForKey:FAVORITES_TWEETS_CACHE_KEY]];
+}
 @end

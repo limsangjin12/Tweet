@@ -13,4 +13,7 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+    #define TIMELINE_TWEETS_CACHE_KEY @"timelineTweets"
+    #define FAVORITES_TWEETS_CACHE_KEY @"favoritesTweets"
 #endif

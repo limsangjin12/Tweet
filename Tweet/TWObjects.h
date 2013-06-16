@@ -34,4 +34,5 @@
 - (void)setObject:(id)object forkey:(NSString*)key;
 - (void)cacheUser:(User*)user;
 - (id)cachedUserForId:(NSInteger)userId;
+- (NSMutableArray*)cachedFavorites;
 @end
