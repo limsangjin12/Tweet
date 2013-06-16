@@ -25,9 +25,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                           target:self
-                                                                                           action:@selector(postTweet)];
+    if(!self.loadOnlyCache)
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                               target:self
+                                                                                               action:@selector(postTweet)];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
@@ -93,6 +94,7 @@
     static NSString *identifier = @"TweetCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     Tweet *tweet = (Tweet*)[self.tweets objectAtIndex:indexPath.row];
+    NSString *body = [Tweet body:tweet];
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:identifier];
@@ -102,11 +104,7 @@
         profileImageView.tag = 1;
         [cell addSubview:profileImageView];
         
-        NSString *body = [Tweet body:tweet];
-        CGSize size = [body sizeWithFont:[UIFont systemFontOfSize:12]
-                       constrainedToSize:CGSizeMake(250, 200)
-                           lineBreakMode:NSLineBreakByWordWrapping];
-        UITextView *bodyView = [[UITextView alloc] initWithFrame:CGRectMake(54, 25, 253, size.height + 10)];
+        UITextView *bodyView = [[UITextView alloc] init];
         bodyView.font = [UIFont systemFontOfSize:12];
         bodyView.userInteractionEnabled = NO;
         bodyView.tag = 2;
@@ -119,6 +117,10 @@
     UIImageView *profileImageView = (UIImageView*)[cell viewWithTag:1];
     UITextView *bodyView = (UITextView*)[cell viewWithTag:2];
     UILabel *usernameView = (UILabel*)[cell viewWithTag:3];
+    CGSize size = [body sizeWithFont:[UIFont systemFontOfSize:12]
+                   constrainedToSize:CGSizeMake(250, 200)
+                       lineBreakMode:NSLineBreakByWordWrapping];
+    bodyView.frame = CGRectMake(54, 25, 253, size.height + 10);
     bodyView.text = [Tweet body:tweet];
     
     CacheObject *cache = [CacheObject sharedObject];
