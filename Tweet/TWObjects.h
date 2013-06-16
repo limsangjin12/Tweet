@@ -7,14 +7,30 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFHTTPClient.h"
+
+@interface NetworkObject : NSObject
++ (AFHTTPClient*)sharedClient;
+@end
+
+@interface CacheObject : NSObject
++ (CacheObject *)sharedObject;
+- (id)objectForkey:(NSString*)key;
+- (void)setObject:(id)object forkey:(NSString*)key;
+- (id)getCachedUserForId:(NSInteger)userId;
+@end
 
 @interface TWObject : NSDictionary
-- (NSString*)type;
-- (NSString*)createdAt;
++ (NSInteger)objectId:(NSDictionary*)object;
++ (NSString*)createdAt:(NSDictionary*)object;
 @end
 
 @interface Tweet : TWObject
-- (NSString*)username;
-- (NSString*)description;
-- (NSURL*)profileImageURL;
++ (NSInteger)userId:(NSDictionary*)object;
++ (NSString*)body:(NSDictionary*)object;
+@end
+
+@interface User : TWObject
++ (NSURL*)profileImageURL:(NSDictionary*)object;
++ (NSString*)username:(NSDictionary*)object;
 @end

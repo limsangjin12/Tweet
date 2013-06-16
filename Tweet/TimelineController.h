@@ -10,7 +10,7 @@
 
 @interface TimelineController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property NSURL *tweetUrl;
+@property NSURL *dataURL;
 @property NSArray *tweets;
 
 @end
