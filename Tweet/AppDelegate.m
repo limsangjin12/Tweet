@@ -20,11 +20,11 @@
     TimelineController *timeline = [[TimelineController alloc] initWithTimelineCacheKey:TIMELINE_TWEETS_CACHE_KEY
                                                                           loadOnlyCache:NO];
     timeline.title = @"Timeline";
-    timeline.tabBarItem.image = [UIImage imageNamed:@"heart"];
+    timeline.tabBarItem.image = [UIImage imageNamed:@"timeline"];
     TimelineController *favorites = [[TimelineController alloc] initWithTimelineCacheKey:FAVORITES_TWEETS_CACHE_KEY
                                                                            loadOnlyCache:YES];
     favorites.title = @"Favorites";
-    favorites.tabBarItem.image = [UIImage imageNamed:@"timeline"];
+    favorites.tabBarItem.image = [UIImage imageNamed:@"heart"];
     NSMutableArray *viewControllers = [NSMutableArray array];
     for(UIViewController *vc in [NSArray arrayWithObjects:timeline, favorites, nil]) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
