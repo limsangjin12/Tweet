@@ -28,7 +28,7 @@
     NSMutableArray *viewControllers = [NSMutableArray array];
     for(UIViewController *vc in [NSArray arrayWithObjects:timeline, favorites, nil]) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-        [viewControllers addObject:nav  ];
+        [viewControllers addObject:nav];
     }
     UITabBarController *tabbarController = [[UITabBarController alloc] init];
     tabbarController.viewControllers = viewControllers;
