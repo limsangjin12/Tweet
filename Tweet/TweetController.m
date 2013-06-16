@@ -46,7 +46,7 @@
     [self.contentView addSubview:usernameView];
     
     CacheObject *cache = [CacheObject sharedObject];
-    __block User *user = [cache getCachedUserForId:[Tweet userId:self.tweet]];
+    __block User *user = [cache cachedUserForId:[Tweet userId:self.tweet]];
     if(user == nil){
         AFHTTPClient *client = [NetworkObject sharedClient];
         [client getPath:[NSString stringWithFormat:@"3/r/%d", [Tweet userId:self.tweet]]
@@ -54,11 +54,10 @@
                 success:^(AFHTTPRequestOperation *operation, id JSON) {
                     NSLog(@"%@", JSON);
                     user = JSON;
-                    NSString *cacheKey = [NSString stringWithFormat:@"user_%@", [JSON objectForKey:@"id"]];
-                    [[CacheObject sharedObject] setObject:user
-                                                   forkey:cacheKey];
-                    [profileImageView setImageWithURL:[User profileImageURL:user]];
+                    [cache cacheUser:user];
+                    [profileImageView setImageWithURL:[User profilePictureURL:user]];
                     usernameView.text = [User username:user];
+                    self.title = [User username:user];
                     user = JSON;
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -67,8 +66,9 @@
          ];
     }
     else{
-        [profileImageView setImageWithURL:[User profileImageURL:user]];
+        [profileImageView setImageWithURL:[User profilePictureURL:user]];
         usernameView.text = [User username:user];
+        self.title = [User username:user];
     }
 }
 

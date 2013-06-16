@@ -11,6 +11,33 @@
 
 #define ServerBaseURL @"http://54.250.145.45/a/3/t/"
 
+@implementation TWObject
++ (NSInteger)objectId:(NSDictionary*)object{
+    return [[object valueForKey:@"id"] intValue];
+}
++ (NSString*)createdAt:(NSDictionary*)object{
+    return [object objectForKey:@"createdAt"];
+}
+@end
+
+@implementation Tweet
++ (NSInteger)userId:(NSDictionary*)object{
+    return [[object valueForKey:@"userId"] intValue];
+}
++ (NSString*)body:(NSDictionary*)object{
+    return [object objectForKey:@"body"];
+}
+@end
+
+@implementation User
++ (NSURL*)profilePictureURL:(NSDictionary*)object{
+    return [NSURL URLWithString:[object objectForKey:@"profilepictureurl"]];
+}
++ (NSString*)username:(NSDictionary*)object{
+    return [object objectForKey:@"username"];
+}
+@end
+
 @implementation NetworkObject
 + (AFHTTPClient*)sharedClient{
     static AFHTTPClient *client = nil;
@@ -20,6 +47,7 @@
         [client setDefaultHeader:@"X-SS-User-Id" value:@"4"];
         [client setDefaultHeader:@"Accept" value:@"application/json"];
         [client setDefaultHeader:@"Content-Type" value:@"application/json"];
+        [client setParameterEncoding:AFJSONParameterEncoding];
     }
     return client;
 }
@@ -47,36 +75,15 @@
     [defaults setValue:value forKey:key];
     [defaults synchronize];
 }
-- (id)getCachedUserForId:(NSInteger)userId{
+- (void)cacheUser:(User*)user{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *key = [NSString stringWithFormat:@"user_%d", [User objectId:user]];
+    [defaults setObject:user forKey:key];
+    [defaults synchronize];
+}
+- (id)cachedUserForId:(NSInteger)userId{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *key = [NSString stringWithFormat:@"user_%d", userId];
     return [defaults objectForKey:key];
-}
-@end
-
-@implementation TWObject
-+ (NSInteger)objectId:(NSDictionary*)object{
-    return [[object valueForKey:@"id"] intValue];
-}
-+ (NSString*)createdAt:(NSDictionary*)object{
-    return [object objectForKey:@"createdAt"];
-}
-@end
-
-@implementation Tweet
-+ (NSInteger)userId:(NSDictionary*)object{
-    return [[object valueForKey:@"userId"] intValue];
-}
-+ (NSString*)body:(NSDictionary*)object{
-    return [object objectForKey:@"body"];
-}
-@end
-
-@implementation User
-+ (NSURL*)profileImageURL:(NSDictionary*)object{
-    return [NSURL URLWithString:[object objectForKey:@"profileImageURL"]];
-}
-+ (NSString*)username:(NSDictionary*)object{
-    return [object objectForKey:@"username"];
 }
 @end

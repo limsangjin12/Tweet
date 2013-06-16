@@ -34,6 +34,7 @@
 		30A727F4176D93BC007EFC0B /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A727E9176D93BC007EFC0B /* AFURLConnectionOperation.m */; };
 		30A727F5176D93BC007EFC0B /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A727EB176D93BC007EFC0B /* AFXMLRequestOperation.m */; };
 		30A727F6176D93BC007EFC0B /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A727ED176D93BC007EFC0B /* UIImageView+AFNetworking.m */; };
+		30A727F9176DAECA007EFC0B /* PostTweetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A727F8176DADC7007EFC0B /* PostTweetController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,7 @@
 		30A727A8176D73CC007EFC0B /* Tweet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tweet-Prefix.pch"; sourceTree = "<group>"; };
 		30A727A9176D73CC007EFC0B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		30A727AA176D73CC007EFC0B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		30A727AC176D73CC007EFC0B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		30A727AC176D73CC007EFC0B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Tweet/Images.xcassets; sourceTree = "<group>"; };
 		30A727B2176D73CC007EFC0B /* TweetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TweetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30A727B3176D73CC007EFC0B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		30A727BB176D73CC007EFC0B /* TweetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TweetTests-Info.plist"; sourceTree = "<group>"; };
@@ -88,6 +89,8 @@
 		30A727EB176D93BC007EFC0B /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		30A727EC176D93BC007EFC0B /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		30A727ED176D93BC007EFC0B /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		30A727F7176DADC7007EFC0B /* PostTweetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostTweetController.h; sourceTree = "<group>"; };
+		30A727F8176DADC7007EFC0B /* PostTweetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostTweetController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				30A727A0176D73CC007EFC0B /* Tweet */,
+				30A727AC176D73CC007EFC0B /* Images.xcassets */,
+				30A727A1176D73CC007EFC0B /* Supporting Files */,
 				30A727B9176D73CC007EFC0B /* TweetTests */,
 				30A72799176D73CC007EFC0B /* Frameworks */,
 				30A72798176D73CC007EFC0B /* Products */,
@@ -150,14 +155,14 @@
 				30A727DA176D93BC007EFC0B /* AFNetworking */,
 				30A727A9176D73CC007EFC0B /* AppDelegate.h */,
 				30A727AA176D73CC007EFC0B /* AppDelegate.m */,
-				30A727AC176D73CC007EFC0B /* Images.xcassets */,
-				30A727A1176D73CC007EFC0B /* Supporting Files */,
 				30A727D2176D856A007EFC0B /* TWObjects.h */,
 				30A727D3176D856A007EFC0B /* TWObjects.m */,
 				30A727CA176D7907007EFC0B /* TimelineController.h */,
 				30A727CB176D7907007EFC0B /* TimelineController.m */,
 				30A727D6176D8F02007EFC0B /* TweetController.h */,
 				30A727D7176D8F02007EFC0B /* TweetController.m */,
+				30A727F7176DADC7007EFC0B /* PostTweetController.h */,
+				30A727F8176DADC7007EFC0B /* PostTweetController.m */,
 			);
 			path = Tweet;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 				30A727A8176D73CC007EFC0B /* Tweet-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = Tweet;
 			sourceTree = "<group>";
 		};
 		30A727B9176D73CC007EFC0B /* TweetTests */ = {
@@ -326,6 +332,7 @@
 				30A727AB176D73CC007EFC0B /* AppDelegate.m in Sources */,
 				30A727F3176D93BC007EFC0B /* AFPropertyListRequestOperation.m in Sources */,
 				30A727D9176D8F0E007EFC0B /* TweetController.h in Sources */,
+				30A727F9176DAECA007EFC0B /* PostTweetController.m in Sources */,
 				30A727F2176D93BC007EFC0B /* AFNetworkActivityIndicatorManager.m in Sources */,
 				30A727A7176D73CC007EFC0B /* main.m in Sources */,
 				30A727D5176D8654007EFC0B /* TWObjects.m in Sources */,

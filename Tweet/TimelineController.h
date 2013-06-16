@@ -10,7 +10,11 @@
 
 @interface TimelineController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (assign) BOOL loadOnlyCache;
+@property NSString *timelineCacheKey;
 @property NSURL *dataURL;
 @property NSArray *tweets;
+@property UIRefreshControl *refreshControl;
 
+- (id)initWithTimelineCacheKey:(NSString*)key loadOnlyCache:(BOOL)cache;
 @end

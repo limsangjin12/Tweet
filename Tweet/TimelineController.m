@@ -9,37 +9,60 @@
 #import "TimelineController.h"
 #import "TWObjects.h"
 #import "TweetController.h"
-#import "AFHTTPClient.h"
 #import "UIImageView+AFNetworking.h"
-
-#define TIMELINE_TWEETS_CACHE_KEY @"timelineTweets"
+#import "PostTweetController.h"
 
 @implementation TimelineController
+
+- (id)initWithTimelineCacheKey:(NSString*)key loadOnlyCache:(BOOL)cache{
+    self = [super init];
+    if(self){
+        self.timelineCacheKey = key;
+        self.loadOnlyCache = cache;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                           target:self
+                                                                                           action:@selector(postTweet)];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
 
-    self.tweets = [[CacheObject sharedObject] objectForkey:TIMELINE_TWEETS_CACHE_KEY];
-    [self refresh];
+    self.tweets = [[CacheObject sharedObject] objectForkey:self.timelineCacheKey];
+    if(!self.loadOnlyCache)
+        [self refresh];
 }
 
 #pragma mark - Custom Methods
 
 - (void)refresh{
+    [self.refreshControl beginRefreshing];
     AFHTTPClient *client = [NetworkObject sharedClient];
     [client getPath:@"4/r"
          parameters:nil
             success:^(AFHTTPRequestOperation *operation, id JSON) {
                 NSLog(@"%@", JSON);
-                [[CacheObject sharedObject] setObject:JSON forkey:TIMELINE_TWEETS_CACHE_KEY];
+                [[CacheObject sharedObject] setObject:JSON forkey:self.timelineCacheKey];
                 self.tweets = JSON;
                 [self.tableView reloadData];
+                [self.refreshControl endRefreshing];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"error");
+                [self.refreshControl endRefreshing];
             }
     ];
+}
+
+- (void)postTweet{
+    PostTweetController *postTweet = [[PostTweetController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:postTweet];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -81,7 +104,7 @@
     bodyView.text = [Tweet body:tweet];
     
     CacheObject *cache = [CacheObject sharedObject];
-    __block User *user = [cache getCachedUserForId:[Tweet userId:tweet]];
+    __block User *user = [cache cachedUserForId:[Tweet userId:tweet]];
     if(user == nil){
         AFHTTPClient *client = [NetworkObject sharedClient];
         [client getPath:[NSString stringWithFormat:@"3/r/%d", [Tweet userId:tweet]]
@@ -89,9 +112,8 @@
                 success:^(AFHTTPRequestOperation *operation, id JSON) {
                     NSLog(@"%@", JSON);
                     user = JSON;
-                    NSString *cacheKey = [NSString stringWithFormat:@"user_%@", [JSON objectForKey:@"id"]];
-                    [[CacheObject sharedObject] setObject:user forkey:cacheKey];
-                    [profileImageView setImageWithURL:[User profileImageURL:user]];
+                    [cache cacheUser:user];
+                    [profileImageView setImageWithURL:[User profilePictureURL:user]];
                     usernameView.text = [User username:user];
                     user = JSON;
                 }
@@ -101,7 +123,7 @@
          ];
     }
     else{
-        [profileImageView setImageWithURL:[User profileImageURL:user]];
+        [profileImageView setImageWithURL:[User profilePictureURL:user]];
         usernameView.text = [User username:user];
     }
     
